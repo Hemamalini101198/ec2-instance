@@ -22,10 +22,10 @@ resource "aws_key_pair" "key_pair" {
   public_key = tls_private_key.pvt_key.public_key_openssh
 }
 
-#resource "local_file" "private_key" {
- # content = tls_private_key.pvt_key.private_key_pem
-  #filename = var.key_name
-#}
+resource "local_file" "private_key" {
+  content = tls_private_key.pvt_key.private_key_pem
+  filename = var.key_name
+}
 
 data "aws_s3_bucket" "pvt_key" {
   bucket = var.s3_bucket
@@ -72,8 +72,8 @@ resource "aws_instance" "ec2_instance" {
   ami = var.ami_id
   instance_type = var.instance_type
   
-  #key_name = aws_key_pair.key_pair.key_name
-  key_name = var.key_name
+  key_name = aws_key_pair.key_pair.key_name
+  #key_name = var.key_name
   #vpc_security_group_ids = [aws_security_group.ec2_security_group.id]
   #subnet_id = 
 
