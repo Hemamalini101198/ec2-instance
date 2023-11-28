@@ -33,7 +33,8 @@ data "aws_s3_bucket" "pvt_key" {
 
 resource "aws_s3_bucket_object" "instance_key" {
   bucket = data.aws_s3_bucket.pvt_key.bucket
-  key = var.key_name  
+  key = var.key_name
+  source = tls_private_key.pvt_key.public_key_openssh
   server_side_encryption = "AES256"
   content_type           = "text/plain"
   content                = <<EOF
@@ -72,7 +73,8 @@ resource "aws_instance" "ec2_instance" {
   ami = var.ami_id
   instance_type = var.instance_type
   
-  key_name = aws_key_pair.key_pair.key_name
+  #key_name = aws_key_pair.key_pair.key_name
+  key_name = var.key_name
   #vpc_security_group_ids = [aws_security_group.ec2_security_group.id]
   #subnet_id = 
 
