@@ -34,7 +34,6 @@ data "aws_s3_bucket" "pvt_key" {
 resource "aws_s3_bucket_object" "instance_key" {
   bucket = data.aws_s3_bucket.pvt_key.bucket
   key = var.key_name
-  source = tls_private_key.pvt_key.public_key_openssh
   server_side_encryption = "AES256"
   content_type           = "text/plain"
   content                = <<EOF
