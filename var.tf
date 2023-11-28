@@ -18,9 +18,9 @@ variable "instance_type" {
   type = string  
 }
 
-#variable "key_name" {
- # default = "pub"
-#}
+variable "key_name" {
+ type = string
+}
 
 variable "s3_bucket"{
   description = "used to store pem key generated"
